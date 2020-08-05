@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import Home from "./components/Home";
 
 const App = () => {
-  return <div className='App'>Quiz App</div>;
+  return (
+    <div className='App'>
+      <Home />
+    </div>
+  );
 };
 
 export default App;
