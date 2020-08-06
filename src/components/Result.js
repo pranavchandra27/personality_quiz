@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Container,
@@ -10,7 +10,7 @@ import {
   Box,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { findCombination } from "../rapper_combination";
+import { findCombination, possiblePersonalities } from "../rapper_combination";
 
 const useStlyes = makeStyles(theme => ({
   root: {
@@ -34,6 +34,7 @@ const useStlyes = makeStyles(theme => ({
 
 const Result = ({ answers, personality }) => {
   const classes = useStlyes();
+  const [rapperMatch, setMatch] = useState("");
 
   useEffect(() => {
     let counts = personality.reduce((a, c) => {
@@ -42,8 +43,21 @@ const Result = ({ answers, personality }) => {
     }, {});
     let maxCount = Math.max(...Object.values(counts));
     let mostFrequent = Object.keys(counts).filter(k => counts[k] === maxCount);
-    findCombination(`${mostFrequent[0]} and ${mostFrequent[1]}`);
-  }, []);
+
+    const randomPersonality = !mostFrequent[1]
+      ? possiblePersonalities()
+      : mostFrequent[1];
+
+    const matchedRapper = !findCombination(
+      `${mostFrequent[0]} and ${randomPersonality}`
+    )
+      ? findCombination(`${randomPersonality} and ${mostFrequent[0]}`)
+      : findCombination(`${mostFrequent[0]} and ${randomPersonality}`);
+
+    console.log(matchedRapper);
+    setMatch(matchedRapper);
+    return;
+  }, [personality]);
 
   return (
     <React.Fragment>
@@ -51,7 +65,7 @@ const Result = ({ answers, personality }) => {
         <Grid container className={classes.root}>
           <Grid item md={6} className={classes.quizContainer}>
             <Typography variant='h4' className={classes.heading}>
-              Your Personality
+              Your Rapper Match
             </Typography>
             <Card className={classes.card}>
               <CardContent>
@@ -61,19 +75,20 @@ const Result = ({ answers, personality }) => {
                       No Result! Take A Quiz
                     </Typography>
                     <Button color='secondary' variant='text'>
-                      <Link to='/'>Start Quiz</Link>
+                      <Link to='/quiz'>Start Quiz</Link>
                     </Button>
                   </Box>
                 ) : (
                   <Box component='div'>
                     <Typography variant='h6' style={{ color: "#ddd" }}>
-                      Results
+                      Here is the match according to your answers
                     </Typography>
-                    {answers.map(answer => (
-                      <Box component='div'>
-                        <Typography>{answer}</Typography>
-                      </Box>
-                    ))}
+                    <Typography variant='h1' style={{ color: "#ddd" }}>
+                      {rapperMatch}
+                    </Typography>
+                    <Button variant='contained'>
+                      <Link to='/quiz'>Go To Quiz</Link>
+                    </Button>
                   </Box>
                 )}
               </CardContent>

@@ -49,10 +49,32 @@ export const combination = [
   { "Passive and Timid": "" },
 ];
 
+const personalities = [
+  "Docile",
+  "Courageous",
+  "Quirky",
+  "Hasty",
+  "Sassy",
+  "Rude",
+  "Tough",
+  "Active",
+  "Passive",
+  "Timid",
+];
+
+export const possiblePersonalities = () => {
+  return personalities[Math.floor(Math.random() * 10)];
+};
+
 export const findCombination = comb => {
+  let rapper;
+
   combination.map(com => {
     if (com[comb]) {
-      console.log(com[comb]);
+      rapper = com[comb];
+      console.log(rapper);
     }
   });
+
+  return rapper;
 };

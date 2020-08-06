@@ -46,7 +46,6 @@ const QuestionCard = ({
   nextQuestion,
   setPersonality,
   selectedAnswer,
-  setUserSelectedAnswer,
   setSelectedAnswer,
   setAllAnswers,
   history,
@@ -141,7 +140,7 @@ const QuestionCard = ({
                 }}
                 onClick={() => {
                   setSelectedAnswer(answer.answer);
-                  setUserSelectedAnswer(answer);
+
                   setSelectedPersonlaity(answer.personality);
                 }}
                 className={classes.answerBtn}>

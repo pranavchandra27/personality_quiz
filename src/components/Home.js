@@ -27,15 +27,12 @@ const Home = ({
   personality,
   addToPersonality,
 }) => {
-  // custome classes for material-ui
+  // custom classes for material-ui
   const classes = useStlyes();
   // States
   const [questions, setQuestions] = useState([]);
-  const [userSelectedAnswers, setUserSelectedAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [number, setNumber] = useState(0);
-
-  const [filteredPersonality, setFilteredPersonality] = useState([]);
 
   useEffect(() => {
     setQuestions(Quiz.questions);
@@ -49,7 +46,7 @@ const Home = ({
     <React.Fragment>
       <Container>
         <Grid container className={classes.root}>
-          <Grid item md={6} className={classes.quizContainer}>
+          <Grid item xs={12} sm={10} md={6} className={classes.quizContainer}>
             <Typography
               variant='h4'
               color='inherit'
@@ -66,7 +63,6 @@ const Home = ({
                 setPersonality={addToPersonality}
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
-                setUserSelectedAnswer={setUserSelectedAnswers}
                 personality={personality}
                 setAllAnswers={setAllAnswers}
                 history={history}

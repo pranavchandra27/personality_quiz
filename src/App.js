@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Home from "./components/Home";
 import Result from "./components/Result";
 import { Switch, Route } from "react-router-dom";
+import LandingPage from "./components/LandingPage";
 
 const App = () => {
   const [answers, setAnswers] = useState([]);
@@ -21,13 +22,12 @@ const App = () => {
       <div id='stars'></div>
       <div id='stars2'></div>
       <div id='star3'></div>
-      <div className='header'>
-        <h1>Curiosum</h1>
-      </div>
+
       <Switch>
+        <Route exact path='/' component={LandingPage} />
         <Route
           exact
-          path='/'
+          path='/quiz'
           render={props => (
             <Home
               {...props}
