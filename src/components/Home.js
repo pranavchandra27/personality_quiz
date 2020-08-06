@@ -15,7 +15,7 @@ const useStlyes = makeStyles(theme => ({
     width: "100%",
   },
   heading: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(5),
     fontWeight: 500,
   },
 }));
