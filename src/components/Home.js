@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid, Typography } from "@material-ui/core";
-
-import * as Quiz from "../quiz_question.json";
 import QuestionCard from "./QuestionCard";
+import * as Quiz from "../quiz_question.json";
 
 const useStlyes = makeStyles(theme => ({
   root: {
@@ -16,18 +15,27 @@ const useStlyes = makeStyles(theme => ({
     width: "100%",
   },
   heading: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(10),
+    fontWeight: 500,
   },
 }));
 
-const Home = () => {
+const Home = ({
+  history,
+  match,
+  setAllAnswers,
+  personality,
+  addToPersonality,
+}) => {
+  // custome classes for material-ui
   const classes = useStlyes();
+  // States
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState([]);
   const [userSelectedAnswers, setUserSelectedAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [number, setNumber] = useState(0);
-  const [personality, setPersonality] = useState([]);
+
+  const [filteredPersonality, setFilteredPersonality] = useState([]);
 
   useEffect(() => {
     setQuestions(Quiz.questions);
@@ -37,16 +45,15 @@ const Home = () => {
     setNumber(number + 1);
   };
 
-  const addToPersonality = userPersonality => {
-    userPersonality.map(type => setPersonality([...personality, type]));
-  };
-
   return (
     <React.Fragment>
       <Container>
         <Grid container className={classes.root}>
           <Grid item md={6} className={classes.quizContainer}>
-            <Typography variant='h2' className={classes.heading}>
+            <Typography
+              variant='h4'
+              color='inherit'
+              className={classes.heading}>
               Personality Quiz
             </Typography>
             {questions.length && (
@@ -60,6 +67,10 @@ const Home = () => {
                 selectedAnswer={selectedAnswer}
                 setSelectedAnswer={setSelectedAnswer}
                 setUserSelectedAnswer={setUserSelectedAnswers}
+                personality={personality}
+                setAllAnswers={setAllAnswers}
+                history={history}
+                match={match}
               />
             )}
           </Grid>
